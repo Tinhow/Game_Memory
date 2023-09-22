@@ -41,10 +41,7 @@ class MainActivity : AppCompatActivity() {
         setupGridLayout(gridLayout)
 
         buttonStart.setOnClickListener {
-            buttonStart.visibility = View.GONE
-            initializeGame()
-            assignImagesToImageViews(gridLayout)
-            setupGridLayout(gridLayout)
+            startNewGame(gridLayout)
         }
     }
 
@@ -59,8 +56,12 @@ class MainActivity : AppCompatActivity() {
         cardList.shuffle()
     }
 
-    private fun checkIfAllCardsMatched(): Boolean {
-        return matchedPairs == cardList.size / 2
+    private fun checkIfAllCardsMatched() {
+        if (matchedPairs == cardList.size / 2) {
+            // Todas as cartas estão emparelhadas, o jogador ganhou.
+            // Tornar o botão "Iniciar Jogo" visível novamente.
+            buttonStart.visibility = View.VISIBLE
+        }
     }
 
     private fun assignImagesToImageViews(gridLayout: GridLayout) {
@@ -98,9 +99,7 @@ class MainActivity : AppCompatActivity() {
                     flippedCards.clear()
 
                     matchedPairs++
-                    if (checkIfAllCardsMatched()) {
-                        // Implemente a lógica de vitória aqui
-                    }
+                    checkIfAllCardsMatched()
                 } else {
                     handler.removeCallbacksAndMessages(null)
                     handler.postDelayed({
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         flippedCards.clear()
                         setupGridLayout(gridLayout)
-                    }, 100)
+                    }, 500)
                 }
             }
         }
@@ -135,5 +134,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun startNewGame(gridLayout: GridLayout) {
+        buttonStart.visibility = View.GONE
+        initializeGame()
+        assignImagesToImageViews(gridLayout)
+        setupGridLayout(gridLayout)
     }
 }
