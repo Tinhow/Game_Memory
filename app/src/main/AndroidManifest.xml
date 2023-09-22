@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Memory"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivityLose"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityWin"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
